@@ -1,3 +1,11 @@
-FROM ghcr.io/zhayujie/chatgpt-on-wechat:latest
+FROM python:3.9
 
-ENTRYPOINT ["/entrypoint.sh"]
+COPY . /app
+
+RUN pip install --no-cache -r /app/requirements.txt \
+  && pip install --no-cache -r /app/requirements-optional.txt \
+  && chmod +x /app/entrypoint.sh
+
+WORKDIR /app
+
+ENTRYPOINT ["./entrypoint.sh"]
