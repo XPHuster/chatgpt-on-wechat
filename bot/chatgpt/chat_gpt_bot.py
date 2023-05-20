@@ -10,7 +10,7 @@ from bot.bot import Bot
 from bot.chatgpt.chat_gpt_session import ChatGPTSession
 from bot.openai.open_ai_image import OpenAIImage
 from bot.session_manager import SessionManager
-from bridge.context import ContextType
+from bridge.context import Context, ContextType
 from bridge.reply import Reply, ReplyType
 from common.log import logger
 from common.token_bucket import TokenBucket
@@ -71,7 +71,7 @@ class ChatGPTBot(Bot, OpenAIImage):
             #     # reply in stream
             #     return self.reply_text_stream(query, new_query, session_id)
 
-            reply_content = self.reply_text(session, api_key)
+            reply_content = self.reply_text(session, context, api_key)
             logger.debug(
                 "[CHATGPT] new_query={}, session_id={}, reply_cont={}, completion_tokens={}".format(
                     session.messages,
@@ -102,7 +102,7 @@ class ChatGPTBot(Bot, OpenAIImage):
             reply = Reply(ReplyType.ERROR, "Bot不支持处理{}类型的消息".format(context.type))
             return reply
 
-    def reply_text(self, session: ChatGPTSession, api_key=None, retry_count=0) -> dict:
+    def reply_text(self, session: ChatGPTSession, context: Context = None, api_key=None, retry_count=0) -> dict:
         """
         call openai's ChatCompletion to get the answer
         :param session: a conversation session
@@ -114,12 +114,22 @@ class ChatGPTBot(Bot, OpenAIImage):
             if conf().get("rate_limit_chatgpt") and not self.tb4chatgpt.get_token():
                 raise openai.error.RateLimitError("RateLimitError: rate limit exceeded")
             # if api_key == None, the default openai.api_key will be used
+            self.args["uid"] = session.session_id
+            extras = {
+                "msg_id": context["msg"].msg_id,
+                "create_time": context["msg"].create_time,
+                "is_at": context["msg"].is_at,
+                "is_group": context["msg"].is_group,
+                "user_id": context["msg"].actual_user_id if context["msg"].is_group else context["msg"].from_user_id,
+                "user_nickname": context["msg"].actual_user_nickname if context["msg"].is_group else context["msg"].from_user_nickname,
+            }
+            self.args["extras"] = extras
             response = openai.ChatCompletion.create(api_key=api_key, messages=session.messages, **self.args)
             # logger.info("[ChatGPT] reply={}, total_tokens={}".format(response.choices[0]['message']['content'], response["usage"]["total_tokens"]))
             return {
-                "total_tokens": response["usage"]["total_tokens"],
-                "completion_tokens": response["usage"]["completion_tokens"],
-                "content": response.choices[0]["message"]["content"],
+                "total_tokens": response["data"]["usage"]["total_tokens"],
+                "completion_tokens": response["data"]["usage"]["completion_tokens"],
+                "content": response["data"].choices[0]["message"]["content"],
             }
         except Exception as e:
             need_retry = retry_count < 2
@@ -150,7 +160,7 @@ class ChatGPTBot(Bot, OpenAIImage):
 
             if need_retry:
                 logger.warn("[CHATGPT] 第{}次重试".format(retry_count + 1))
-                return self.reply_text(session, api_key, retry_count + 1)
+                return self.reply_text(session, context, api_key, retry_count + 1)
             else:
                 return result
 
