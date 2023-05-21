@@ -124,6 +124,7 @@ class ChatGPTBot(Bot, OpenAIImage):
                 "user_nickname": context["msg"].actual_user_nickname if context["msg"].is_group else context["msg"].from_user_nickname,
             }
             self.args["extras"] = extras
+            self.args["appid"] = conf().get("appid")
             response = openai.ChatCompletion.create(api_key=api_key, messages=session.messages, **self.args)
             # logger.info("[ChatGPT] reply={}, total_tokens={}".format(response.choices[0]['message']['content'], response["usage"]["total_tokens"]))
             return {
