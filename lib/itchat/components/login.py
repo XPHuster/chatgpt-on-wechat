@@ -8,6 +8,9 @@ import xml.dom.minidom
 import random
 import traceback
 import logging
+
+from config import conf
+
 try:
     from httplib import BadStatusLine
 except ImportError:
@@ -331,7 +334,13 @@ def start_receiving(self, exitCallback=None, getReceivingFnOnly=False):
         if hasattr(exitCallback, '__call__'):
             exitCallback()
         else:
-            logger.info('LOG OUT!')
+            logger.info('LOG OUT2!')
+            headers = {'Content-Type': 'application/json'}
+            appid = conf().get("appid")
+            data = {'msg_type': 'text', 'content': {'text': f"robot logout，appid:{appid}"}}
+            requests.post('https://open.feishu.cn/open-apis/bot/v2/hook/32716548-78a2-4de8-9e78-bd3c1f899f31',
+                          json=data, headers=headers)
+
     if getReceivingFnOnly:
         return maintain_loop
     else:
