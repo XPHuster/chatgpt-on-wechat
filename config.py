@@ -12,6 +12,8 @@ from common.log import logger
 available_setting = {
     # appid 配置
     "appid": "", # zelinai appid
+    # webhook 配置
+    "webhook": "", # 用于推送消息
     # openai api配置
     "open_ai_api_key": "",  # openai api key
     # openai apibase，当use_azure_chatgpt为true时，需要设置对应的api base

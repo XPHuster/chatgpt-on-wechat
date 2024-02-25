@@ -122,14 +122,22 @@ class ChatGPTBot(Bot, OpenAIImage):
             extras = {
                 "msg_id": context["msg"].msg_id,
                 "create_time": context["msg"].create_time,
+                "content": context["msg"].content,
                 "is_at": context["msg"].is_at,
                 "is_group": context["msg"].is_group,
-                "user_id": context["msg"].actual_user_id if context["msg"].is_group else context["msg"].from_user_id,
-                "user_nickname": context["msg"].actual_user_nickname if context["msg"].is_group else context["msg"].from_user_nickname,
+                "my_msg": context["msg"].my_msg,
+                "actual_user_id": context["msg"].actual_user_id,
+                "actual_user_nickname": context["msg"].actual_user_nickname,
+                "from_user_id": context["msg"].from_user_id,
+                "from_user_nickname": context["msg"].from_user_nickname,
+                "to_user_id": context["msg"].to_user_id,
+                "to_user_nickname": context["msg"].to_user_nickname,
+                "other_user_id": context["msg"].other_user_id,
+                "other_user_nickname": context["msg"].other_user_nickname,
             }
             self.args["extras"] = extras
             self.args["appid"] = conf().get("appid")
-            response = openai.ChatCompletion.create(api_key=api_key, messages=session.messages, **self.args)
+            # response = openai.ChatCompletion.create(api_key=api_key, messages=session.messages, **self.args)
             if args is None:
                 args = self.args
             response = openai.ChatCompletion.create(api_key=api_key, messages=session.messages, **args)

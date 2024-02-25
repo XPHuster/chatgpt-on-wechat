@@ -107,7 +107,9 @@ async def login(self, enableCmdQR=False, picDir=None, qrCallback=None, EventScan
             headers = {'Content-Type': 'application/json'}
             appid = conf().get("appid")
             data = {'msg_type': 'text', 'content': {'text': f"robot logout，appid:{appid}"}}
-            requests.post('https://open.feishu.cn/open-apis/bot/v2/hook/32716548-78a2-4de8-9e78-bd3c1f899f31', json=data, headers=headers)
+            webhook = conf().get("webhook")
+            if webhook:
+                requests.post(webhook, json=data, headers=headers)
 
             payload = EventScanPayload(
                 status=ScanStatus.Timeout,
@@ -353,8 +355,9 @@ async def start_receiving(self, exitCallback=None, getReceivingFnOnly=False):
             headers = {'Content-Type': 'application/json'}
             appid = conf().get("appid")
             data = {'msg_type': 'text', 'content': {'text': f"robot logout，appid:{appid}"}}
-            requests.post('https://open.feishu.cn/open-apis/bot/v2/hook/32716548-78a2-4de8-9e78-bd3c1f899f31',
-                          json=data, headers=headers)
+            webhook = conf().get("webhook")
+            if webhook:
+                requests.post(webhook, json=data, headers=headers)
 
     if getReceivingFnOnly:
         return maintain_loop
