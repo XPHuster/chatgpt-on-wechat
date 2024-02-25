@@ -33,7 +33,10 @@ broadscope_bailian
 google-generativeai
 
 # linkai
-linkai
+linkai>=0.0.3.5
 
 # dingtalk
 dingtalk_stream
+
+# zhipuai
+zhipuai>=2.0.1
