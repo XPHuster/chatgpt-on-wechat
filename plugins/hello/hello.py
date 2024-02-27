@@ -25,6 +25,7 @@ class Hello(Plugin):
         self.config = super().load_config()
 
     def on_handle_context(self, e_context: EventContext):
+        e_context["context"]["hello"] = False
         if e_context["context"].type not in [
             ContextType.TEXT,
             ContextType.JOIN_GROUP,
@@ -46,6 +47,7 @@ class Hello(Plugin):
             e_context.action = EventAction.BREAK  # 事件结束，进入默认处理逻辑
             if not self.config or not self.config.get("use_character_desc"):
                 e_context["context"]["generate_breaked_by"] = EventAction.BREAK
+            e_context["context"]["hello"] = True
             return
         
         if e_context["context"].type == ContextType.EXIT_GROUP:
@@ -54,8 +56,10 @@ class Hello(Plugin):
                 msg: ChatMessage = e_context["context"]["msg"]
                 e_context["context"].content = f'请你随机使用一种风格跟其他群用户说他违反规则"{msg.actual_user_nickname}"退出群聊。'
                 e_context.action = EventAction.BREAK  # 事件结束，进入默认处理逻辑
+                e_context["context"]["hello"] = True
                 return
             e_context.action = EventAction.BREAK
+            e_context["context"]["hello"] = True
             return
             
         if e_context["context"].type == ContextType.PATPAT:
@@ -65,11 +69,12 @@ class Hello(Plugin):
             e_context.action = EventAction.BREAK  # 事件结束，进入默认处理逻辑
             if not self.config or not self.config.get("use_character_desc"):
                 e_context["context"]["generate_breaked_by"] = EventAction.BREAK
+            e_context["context"]["hello"] = True
             return
 
         content = e_context["context"].content
         logger.debug("[Hello] on_handle_context. content: %s" % content)
-        if content == "Hello":
+        if content == "HelloZelinAI":
             reply = Reply()
             reply.type = ReplyType.TEXT
             msg: ChatMessage = e_context["context"]["msg"]
@@ -80,14 +85,14 @@ class Hello(Plugin):
             e_context["reply"] = reply
             e_context.action = EventAction.BREAK_PASS  # 事件结束，并跳过处理context的默认逻辑
 
-        if content == "Hi":
+        if content == "HiZelinAI":
             reply = Reply()
             reply.type = ReplyType.TEXT
             reply.content = "Hi"
             e_context["reply"] = reply
             e_context.action = EventAction.BREAK  # 事件结束，进入默认处理逻辑，一般会覆写reply
 
-        if content == "End":
+        if content == "EndZelinAI":
             # 如果是文本消息"End"，将请求转换成"IMAGE_CREATE"，并将content设置为"The World"
             e_context["context"].type = ContextType.IMAGE_CREATE
             content = "The World"

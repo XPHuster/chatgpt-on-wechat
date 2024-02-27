@@ -134,6 +134,7 @@ class ChatGPTBot(Bot, OpenAIImage):
                 "to_user_nickname": context["msg"].to_user_nickname,
                 "other_user_id": context["msg"].other_user_id,
                 "other_user_nickname": context["msg"].other_user_nickname,
+                "hello": context["hello"]
             }
             self.args["extras"] = extras
             self.args["appid"] = conf().get("appid")
