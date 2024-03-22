@@ -219,6 +219,7 @@ class Godcmd(Plugin):
         # 屏蔽Godcmd插件
         if context_type == ContextType.TEXT:
             logger.info("[Godcmd] content:%s return!" % e_context["context"].content)
+            e_context.action = EventAction.BREAK_PASS
             return
 
         content = e_context["context"].content
