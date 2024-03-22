@@ -169,11 +169,11 @@ class ChatChannel(Channel):
     def _handle(self, context: Context):
         if context is None or not context.content:
             return
-        logger.debug("[WX] ready to handle context: {}".format(context))
+        logger.info("[WX] ready to handle context: {}".format(context))
         # reply的构建步骤
         reply = self._generate_reply(context)
 
-        logger.debug("[WX] ready to decorate reply: {}".format(reply))
+        logger.info("[WX] ready to decorate reply: {}".format(reply))
 
         # reply的包装步骤
         if reply and reply.content:
@@ -191,7 +191,7 @@ class ChatChannel(Channel):
         )
         reply = e_context["reply"]
         if not e_context.is_pass():
-            logger.debug("[WX] ready to handle context: type={}, content={}".format(context.type, context.content))
+            logger.info("[WX] ready to handle context: type={}, content={}".format(context.type, context.content))
             if context.type == ContextType.TEXT or context.type == ContextType.IMAGE_CREATE:  # 文字和图片消息
                 context["channel"] = e_context["channel"]
                 reply = super().build_reply_content(context.content, context)
@@ -332,8 +332,10 @@ class ChatChannel(Channel):
                     threading.BoundedSemaphore(conf().get("concurrency_in_session", 4)),
                 ]
             if context.type == ContextType.TEXT and context.content.startswith("#"):
+                logger.info("produce() putleft!")
                 self.sessions[session_id][0].putleft(context)  # 优先处理管理命令
             else:
+                logger.info("produce() put!")
                 self.sessions[session_id][0].put(context)
 
     # 消费者函数，单独线程，用于从消息队列中取出消息并处理
@@ -346,17 +348,19 @@ class ChatChannel(Channel):
                     if semaphore.acquire(blocking=False):  # 等线程处理完毕才能删除
                         if not context_queue.empty():
                             context = context_queue.get()
-                            logger.debug("[WX] consume context: {}".format(context))
+                            logger.info("consume() context: {}".format(context))
                             future: Future = handler_pool.submit(self._handle, context)
                             future.add_done_callback(self._thread_pool_callback(session_id, context=context))
                             if session_id not in self.futures:
                                 self.futures[session_id] = []
                             self.futures[session_id].append(future)
                         elif semaphore._initial_value == semaphore._value + 1:  # 除了当前，没有任务再申请到信号量，说明所有任务都处理完毕
+                            logger.info("consume() 所有任务都处理完毕!")
                             self.futures[session_id] = [t for t in self.futures[session_id] if not t.done()]
                             assert len(self.futures[session_id]) == 0, "thread pool error"
                             del self.sessions[session_id]
                         else:
+                            logger.info("consume() else!")
                             semaphore.release()
             time.sleep(0.1)
 
