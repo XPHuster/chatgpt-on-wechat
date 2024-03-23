@@ -3,14 +3,12 @@ import re
 import io
 import json
 import copy
-import logging
+from common.log import logger
 
 from .. import config, utils
 from ..returnvalues import ReturnValue
 from ..storage import contact_change
 from ..utils import update_info_dict
-
-logger = logging.getLogger('itchat')
 
 
 def load_contact(core):

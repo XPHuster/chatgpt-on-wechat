@@ -132,8 +132,8 @@ class WeworkMessage(ChatMessage):
                 self.content = os.path.join(current_dir, "tmp", file_name)
                 self._prepare_fn = lambda: cdn_download(wework, wework_msg, file_name)
             elif wework_msg["type"] == 11045:  # 文件消息
-                print("文件消息")
-                print(wework_msg)
+                logger.info("文件消息")
+                logger.info(wework_msg)
                 file_name = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
                 file_name = file_name + wework_msg['data']['cdn']['file_name']
                 current_dir = os.getcwd()

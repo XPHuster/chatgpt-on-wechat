@@ -15,7 +15,7 @@ from config import conf
 from common.expired_dict import ExpiredDict
 from bridge.context import ContextType
 from channel.chat_channel import ChatChannel
-import logging
+from common.log import logger
 from dingtalk_stream import AckMessage
 import dingtalk_stream
 
@@ -26,12 +26,12 @@ class DingTalkChanel(ChatChannel, dingtalk_stream.ChatbotHandler):
     dingtalk_client_secret = conf().get('dingtalk_client_secret')
 
     def setup_logger(self):
-        logger = logging.getLogger()
-        handler = logging.StreamHandler()
-        handler.setFormatter(
-            logging.Formatter('%(asctime)s %(name)-8s %(levelname)-8s %(message)s [%(filename)s:%(lineno)d]'))
-        logger.addHandler(handler)
-        logger.setLevel(logging.INFO)
+        # logger = logging.getLogger()
+        # handler = logging.StreamHandler()
+        # handler.setFormatter(
+        #     logging.Formatter('%(asctime)s %(name)-8s %(levelname)-8s %(message)s [%(filename)s:%(lineno)d]'))
+        # logger.addHandler(handler)
+        # logger.setLevel(logging.INFO)
         return logger
 
     def __init__(self):

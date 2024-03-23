@@ -30,14 +30,14 @@ class TerminalChannel(ChatChannel):
     NOT_SUPPORT_REPLYTYPE = [ReplyType.VOICE]
 
     def send(self, reply: Reply, context: Context):
-        print("\nBot:")
+        logger.info("\nBot:")
         if reply.type == ReplyType.IMAGE:
             from PIL import Image
 
             image_storage = reply.content
             image_storage.seek(0)
             img = Image.open(image_storage)
-            print("<IMAGE>")
+            logger.info("<IMAGE>")
             img.show()
         elif reply.type == ReplyType.IMAGE_URL:  # 从网络下载图片
             import io
@@ -52,25 +52,25 @@ class TerminalChannel(ChatChannel):
                 image_storage.write(block)
             image_storage.seek(0)
             img = Image.open(image_storage)
-            print(img_url)
+            logger.info(img_url)
             img.show()
         else:
-            print(reply.content)
-        print("\nUser:", end="")
+            logger.info(reply.content)
+        logger.info("\nUser:", end="")
         sys.stdout.flush()
         return
 
     def startup(self):
         context = Context()
         logger.setLevel("WARN")
-        print("\nPlease input your question:\nUser:", end="")
+        logger.info("\nPlease input your question:\nUser:", end="")
         sys.stdout.flush()
         msg_id = 0
         while True:
             try:
                 prompt = self.get_input()
             except KeyboardInterrupt:
-                print("\nExiting...")
+                logger.info("\nExiting...")
                 sys.exit()
             msg_id += 1
             trigger_prefixs = conf().get("single_chat_prefix", [""])

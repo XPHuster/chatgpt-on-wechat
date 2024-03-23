@@ -7,7 +7,7 @@ import json
 import xml.dom.minidom
 import random
 import traceback
-import logging
+from common.log import logger
 
 from config import conf
 
@@ -24,9 +24,6 @@ from ..returnvalues import ReturnValue
 from ..storage.templates import wrap_user_dict
 from .contact import update_local_chatrooms, update_local_friends
 from .messages import produce_msg
-
-logger = logging.getLogger('itchat')
-
 
 def load_login(core):
     core.login = login

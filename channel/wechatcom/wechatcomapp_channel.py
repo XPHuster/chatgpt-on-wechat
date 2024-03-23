@@ -35,7 +35,7 @@ class WechatComAppChannel(ChatChannel):
         self.agent_id = conf().get("wechatcomapp_agent_id")
         self.token = conf().get("wechatcomapp_token")
         self.aes_key = conf().get("wechatcomapp_aes_key")
-        print(self.corp_id, self.secret, self.agent_id, self.token, self.aes_key)
+        logger.info(self.corp_id, self.secret, self.agent_id, self.token, self.aes_key)
         logger.info(
             "[wechatcom] init: corp_id: {}, secret: {}, agent_id: {}, token: {}, aes_key: {}".format(self.corp_id, self.secret, self.agent_id, self.token, self.aes_key)
         )

@@ -1,7 +1,7 @@
 import os, time, re, io
 import json
 import mimetypes, hashlib
-import logging
+from common.log import logger
 from collections import OrderedDict
 
 
@@ -9,8 +9,6 @@ from .. import config, utils
 from ..returnvalues import ReturnValue
 from ..storage import templates
 from .contact import update_local_uin
-
-logger = logging.getLogger('itchat')
 
 def load_messages(core):
     core.send_raw_msg = send_raw_msg

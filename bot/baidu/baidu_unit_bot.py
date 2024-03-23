@@ -4,6 +4,7 @@ import requests
 
 from bot.bot import Bot
 from bridge.reply import Reply, ReplyType
+from common.log import logger
 
 
 # Baidu Unit对话接口 (可用, 但能力较弱)
@@ -16,7 +17,7 @@ class BaiduUnitBot(Bot):
             + query
             + '", "hyper_params": {"chat_custom_bot_profile": 1}}}'
         )
-        print(post_data)
+        logger.info(post_data)
         headers = {"content-type": "application/x-www-form-urlencoded"}
         response = requests.post(url, data=post_data.encode(), headers=headers)
         if response:
@@ -32,5 +33,5 @@ class BaiduUnitBot(Bot):
         host = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=" + access_key + "&client_secret=" + secret_key
         response = requests.get(host)
         if response:
-            print(response.json())
+            logger.info(response.json())
             return response.json()["access_token"]

@@ -1,10 +1,9 @@
-import logging, copy, pickle
+import copy, pickle
 from weakref import ref
+from common.log import logger
 
 from ..returnvalues import ReturnValue
 from ..utils import update_info_dict
-
-logger = logging.getLogger('itchat')
 
 class AttributeDict(dict):
     def __getattr__(self, value):

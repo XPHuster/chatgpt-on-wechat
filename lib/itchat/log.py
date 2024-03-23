@@ -33,4 +33,4 @@ class LogSystem(object):
             self.loggingLevel = loggingLevel
 
 ls = LogSystem()
-set_logging = ls.set_logging
+# set_logging = ls.set_logging

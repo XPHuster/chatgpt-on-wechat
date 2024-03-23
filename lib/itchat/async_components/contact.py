@@ -1,14 +1,12 @@
 import time, re, io
 import json, copy
-import logging
+from common.log import logger
 
 from .. import config, utils
 from ..components.contact import accept_friend
 from ..returnvalues import ReturnValue
 from ..storage import contact_change
 from ..utils import update_info_dict
-
-logger = logging.getLogger('itchat')
 
 def load_contact(core):
     core.update_chatroom             = update_chatroom

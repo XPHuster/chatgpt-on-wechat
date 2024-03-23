@@ -1,4 +1,5 @@
-import re, os, sys, subprocess, copy, traceback, logging
+import re, os, sys, subprocess, copy, traceback
+from common.log import logger
 
 try:
     from HTMLParser import HTMLParser
@@ -13,8 +14,6 @@ except ImportError:
 import requests
 
 from . import config
-
-logger = logging.getLogger('itchat')
 
 emojiRegex = re.compile(r'<span class="emoji emoji(.{1,10})"></span>')
 htmlParser = HTMLParser()

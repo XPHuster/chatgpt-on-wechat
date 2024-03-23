@@ -4,11 +4,9 @@ try:
 except ImportError:
     import queue as Queue
 
-from ..log import set_logging
+from common.log import logger
 from ..utils import test_connect
 from ..storage import templates
-
-logger = logging.getLogger('itchat')
 
 def load_register(core):
     core.auto_login       = auto_login
@@ -86,8 +84,8 @@ def msg_register(self, msgType, isFriendChat=False, isGroupChat=False, isMpChat=
 
 def run(self, debug=False, blockThread=True):
     logger.info('Start auto replying.')
-    if debug:
-        set_logging(loggingLevel=logging.DEBUG)
+    # if debug:
+    #     set_logging(loggingLevel=logging.DEBUG)
     def reply_fn():
         try:
             while self.alive:

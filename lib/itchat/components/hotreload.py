@@ -1,5 +1,5 @@
 import pickle, os
-import logging
+from common.log import logger
 
 import requests
 
@@ -8,8 +8,6 @@ from ..returnvalues import ReturnValue
 from ..storage import templates
 from .contact import update_local_chatrooms, update_local_friends
 from .messages import produce_msg
-
-logger = logging.getLogger('itchat')
 
 def load_hotreload(core):
     core.dump_login_status = dump_login_status

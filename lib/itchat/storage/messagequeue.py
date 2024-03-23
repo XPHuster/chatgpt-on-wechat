@@ -1,12 +1,10 @@
-import logging
+from common.log import logger
 try:
     import Queue as queue
 except ImportError:
     import queue
 
 from .templates import AttributeDict
-
-logger = logging.getLogger('itchat')
 
 class Queue(queue.Queue):
     def put(self, message):

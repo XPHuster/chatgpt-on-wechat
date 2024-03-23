@@ -1,6 +1,6 @@
 from .core import Core
 from .config import VERSION, ASYNC_COMPONENTS
-from .log import set_logging
+# from .log import set_logging
 
 if ASYNC_COMPONENTS:
     from .async_components import load_components
@@ -93,4 +93,4 @@ run                         = instance.run
 search_friends              = instance.search_friends
 search_chatrooms            = instance.search_chatrooms
 search_mps                  = instance.search_mps
-set_logging                 = set_logging
+# set_logging                 = set_logging

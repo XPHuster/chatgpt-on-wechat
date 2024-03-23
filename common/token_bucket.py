@@ -1,6 +1,6 @@
 import threading
 import time
-
+from common.log import logger
 
 class TokenBucket:
     def __init__(self, tpm, timeout=None):
@@ -41,5 +41,5 @@ if __name__ == "__main__":
     # token_bucket = TokenBucket(20, 0.1)
     for i in range(3):
         if token_bucket.get_token():
-            print(f"第{i+1}次请求成功")
+            logger.info(f"第{i+1}次请求成功")
     token_bucket.close()
