@@ -18,7 +18,7 @@ def _reset_logger(log):
     console_handle.setFormatter(formatter)
     log.addHandler(console_handle)
     # file_handle
-    file_handle = logging.FileHandler("run.log", encoding="utf-8", mode='a')
+    file_handle = logging.FileHandler("./log/run.log", encoding="utf-8", mode='a')
     file_handle.setFormatter(formatter)
     log.addHandler(file_handle)
 
