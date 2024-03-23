@@ -11,16 +11,18 @@ def _reset_logger(log):
         del handler
     log.handlers.clear()
     log.propagate = True
+    appid = conf().get("appid")
     formatter = logging.Formatter(
-        "[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d] - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S.%f",
+        "[" + appid + "][%(threadName)s][%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d] - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S.%F",
     )
+
     # console_handle
     console_handle = logging.StreamHandler(sys.stdout)
     console_handle.setFormatter(formatter)
     log.addHandler(console_handle)
+
     # file_handle
-    appid = conf().get("appid")
     file_handle = logging.FileHandler("./log/" + appid + ".log", encoding="utf-8", mode='a')
     file_handle.setFormatter(formatter)
     log.addHandler(file_handle)
