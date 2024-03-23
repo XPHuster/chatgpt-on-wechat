@@ -360,7 +360,7 @@ class ChatChannel(Channel):
                             assert len(self.futures[session_id]) == 0, "thread pool error"
                             del self.sessions[session_id]
                         else:
-                            logger.info("consume() else!")
+                            # logger.info("consume() else!")
                             semaphore.release()
             time.sleep(0.1)
 
