@@ -1,6 +1,8 @@
 from bot.session_manager import Session
-from common.log import logger
 from common import const
+
+from common import log
+logger = log.get_logger(__name__)
 
 """
     e.g.  [

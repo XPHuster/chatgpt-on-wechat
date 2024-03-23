@@ -6,10 +6,11 @@ import os
 import plugins
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from plugins import *
 
 from .lib.WordsSearch import WordsSearch
+from common import log
+logger = log.get_logger(__name__)
 
 
 @plugins.register(

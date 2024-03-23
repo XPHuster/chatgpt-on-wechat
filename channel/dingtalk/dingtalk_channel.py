@@ -9,15 +9,16 @@
 from channel.dingtalk.dingtalk_message import DingTalkMessage
 from bridge.context import Context
 from bridge.reply import Reply
-from common.log import logger
 from common.singleton import singleton
 from config import conf
 from common.expired_dict import ExpiredDict
 from bridge.context import ContextType
 from channel.chat_channel import ChatChannel
-from common.log import logger
 from dingtalk_stream import AckMessage
 import dingtalk_stream
+
+from common import log
+logger = log.get_logger(__name__)
 
 
 @singleton

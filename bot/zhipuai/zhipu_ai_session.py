@@ -1,5 +1,7 @@
 from bot.session_manager import Session
-from common.log import logger
+
+from common import log
+logger = log.get_logger(__name__)
 
 
 class ZhipuAISession(Session):

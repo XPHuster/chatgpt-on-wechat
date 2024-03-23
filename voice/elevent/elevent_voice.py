@@ -3,10 +3,11 @@ import time
 from elevenlabs import set_api_key,generate
 
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from common.tmp_dir import TmpDir
 from voice.voice import Voice
 from config import conf
+from common import log
+logger = log.get_logger(__name__)
 
 XI_API_KEY = conf().get("xi_api_key")
 set_api_key(XI_API_KEY)

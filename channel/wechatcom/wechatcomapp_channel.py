@@ -15,11 +15,12 @@ from bridge.reply import Reply, ReplyType
 from channel.chat_channel import ChatChannel
 from channel.wechatcom.wechatcomapp_client import WechatComAppClient
 from channel.wechatcom.wechatcomapp_message import WechatComAppMessage
-from common.log import logger
 from common.singleton import singleton
 from common.utils import compress_imgfile, fsize, split_string_by_utf8_length
 from config import conf, subscribe_msg
 from voice.audio_convert import any_to_amr, split_audio
+from common import log
+logger = log.get_logger(__name__)
 
 MAX_UTF8_LEN = 2048
 

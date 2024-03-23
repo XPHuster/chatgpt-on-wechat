@@ -9,8 +9,10 @@ from bot.openai.open_ai_image import OpenAIImage
 from bot.session_manager import SessionManager
 from bridge.context import Context, ContextType
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from config import conf
+
+from common import log
+logger = log.get_logger(__name__)
 
 
 class ClaudeAIBot(Bot, OpenAIImage):

@@ -1,7 +1,8 @@
 import os
 import json
 from config import pconf, plugin_config, conf
-from common.log import logger
+from common import log
+logger = log.get_logger(__name__)
 
 
 class Plugin:

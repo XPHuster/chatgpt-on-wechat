@@ -15,13 +15,14 @@ from collections import defaultdict
 from bridge.context import *
 from bridge.reply import *
 from channel.chat_channel import ChatChannel
-from channel.wechatmp.common import *
+from channel.wechatmp.common1 import *
 from channel.wechatmp.wechatmp_client import WechatMPClient
-from common.log import logger
 from common.singleton import singleton
 from common.utils import split_string_by_utf8_length
 from config import conf
 from voice.audio_convert import any_to_mp3, split_audio
+from common import log
+logger = log.get_logger(__name__)
 
 # If using SSL, uncomment the following lines, and modify the certificate path.
 # from cheroot.server import HTTPServer

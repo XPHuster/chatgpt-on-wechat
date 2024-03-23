@@ -1,6 +1,8 @@
-from common.log import logger
+
 from config import conf
 
+from common import log
+logger = log.get_logger(__name__)
 
 # ZhipuAI提供的画图接口
 

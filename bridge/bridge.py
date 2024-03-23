@@ -2,12 +2,13 @@ from bot.bot_factory import create_bot
 from bridge.context import Context
 from bridge.reply import Reply
 from common import const
-from common.log import logger
 from common.singleton import singleton
 from config import conf
 from translate.factory import create_translator
 from voice.factory import create_voice
 
+from common import log
+logger = log.get_logger(__name__)
 
 @singleton
 class Bridge(object):

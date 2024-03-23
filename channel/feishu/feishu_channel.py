@@ -13,7 +13,6 @@ import web
 from channel.feishu.feishu_message import FeishuMessage
 from bridge.context import Context
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from common.singleton import singleton
 from config import conf
 from common.expired_dict import ExpiredDict
@@ -23,6 +22,8 @@ from common import utils
 import json
 import os
 
+from common import log
+logger = log.get_logger(__name__)
 URL_VERIFICATION = "url_verification"
 
 

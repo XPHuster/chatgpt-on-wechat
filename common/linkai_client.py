@@ -1,9 +1,10 @@
 from bridge.context import Context, ContextType
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from linkai import LinkAIClient, PushMsg
 from config import conf, pconf, plugin_config
 from plugins import PluginManager
+from common import log
+logger = log.get_logger(__name__)
 
 
 chat_client: LinkAIClient

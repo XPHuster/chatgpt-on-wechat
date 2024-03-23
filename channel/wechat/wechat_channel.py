@@ -18,12 +18,13 @@ from channel.chat_channel import ChatChannel
 from channel import chat_channel
 from channel.wechat.wechat_message import *
 from common.expired_dict import ExpiredDict
-from common.log import logger
 from common.singleton import singleton
 from common.time_check import time_checker
 from config import conf, get_appdata_dir
 from lib import itchat
 from lib.itchat.content import *
+from common import log
+logger = log.get_logger(__name__)
 
 
 @itchat.msg_register([TEXT, VOICE, PICTURE, NOTE, ATTACHMENT, SHARING])

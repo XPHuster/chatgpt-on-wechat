@@ -5,9 +5,11 @@ from bot.bot import Bot
 from bot.session_manager import SessionManager
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from config import conf
 from bot.baidu.baidu_wenxin_session import BaiduWenxinSession
+
+from common import log
+logger = log.get_logger(__name__)
 
 BAIDU_API_KEY = conf().get("baidu_wenxin_api_key")
 BAIDU_SECRET_KEY = conf().get("baidu_wenxin_secret_key")

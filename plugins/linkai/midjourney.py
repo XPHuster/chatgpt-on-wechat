@@ -1,6 +1,5 @@
 from enum import Enum
 from config import conf
-from common.log import logger
 import requests
 import threading
 import time
@@ -9,6 +8,8 @@ import asyncio
 from bridge.context import ContextType
 from plugins import EventContext, EventAction
 from .utils import Util
+from common import log
+logger = log.get_logger(__name__)
 
 INVALID_REQUEST = 410
 NOT_FOUND_ORIGIN_IMAGE = 461

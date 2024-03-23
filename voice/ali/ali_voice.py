@@ -14,11 +14,12 @@ import re
 import time
 
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from voice.voice import Voice
 from voice.ali.ali_api import AliyunTokenGenerator
 from voice.ali.ali_api import text_to_speech_aliyun
 from config import conf
+from common import log
+logger = log.get_logger(__name__)
 
 
 class AliVoice(Voice):

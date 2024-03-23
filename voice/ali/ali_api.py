@@ -18,8 +18,9 @@ import base64
 import urllib.parse
 import uuid
 
-from common.log import logger
 from common.tmp_dir import TmpDir
+from common import log
+logger = log.get_logger(__name__)
 
 
 def text_to_speech_aliyun(url, text, appkey, token):

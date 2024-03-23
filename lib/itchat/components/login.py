@@ -7,7 +7,6 @@ import json
 import xml.dom.minidom
 import random
 import traceback
-from common.log import logger
 
 from config import conf
 
@@ -24,6 +23,10 @@ from ..returnvalues import ReturnValue
 from ..storage.templates import wrap_user_dict
 from .contact import update_local_chatrooms, update_local_friends
 from .messages import produce_msg
+
+from common import log
+logger = log.get_logger(__name__)
+
 
 def load_login(core):
     core.login = login

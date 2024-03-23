@@ -11,8 +11,10 @@ from bot.openai.open_ai_session import OpenAISession
 from bot.session_manager import SessionManager
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from config import conf
+
+from common import log
+logger = log.get_logger(__name__)
 
 user_session = dict()
 

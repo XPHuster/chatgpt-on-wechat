@@ -4,7 +4,9 @@ import requests
 
 from bot.bot import Bot
 from bridge.reply import Reply, ReplyType
-from common.log import logger
+
+from common import log
+logger = log.get_logger(__name__)
 
 
 # Baidu Unit对话接口 (可用, 但能力较弱)

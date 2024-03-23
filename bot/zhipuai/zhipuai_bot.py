@@ -10,10 +10,11 @@ from bot.zhipuai.zhipu_ai_image import ZhipuAIImage
 from bot.session_manager import SessionManager
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from config import conf, load_config
 from zhipuai import ZhipuAI
 
+from common import log
+logger = log.get_logger(__name__)
 
 # ZhipuAI对话模型API
 class ZHIPUAIBot(Bot, ZhipuAIImage):

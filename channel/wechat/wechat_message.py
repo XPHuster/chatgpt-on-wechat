@@ -2,10 +2,12 @@ import re
 
 from bridge.context import ContextType
 from channel.chat_message import ChatMessage
-from common.log import logger
 from common.tmp_dir import TmpDir
 from lib import itchat
 from lib.itchat.content import *
+from common import log
+logger = log.get_logger(__name__)
+
 
 class WechatMessage(ChatMessage):
     def __init__(self, itchat_msg, is_group=False):

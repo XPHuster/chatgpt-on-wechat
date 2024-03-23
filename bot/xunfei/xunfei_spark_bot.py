@@ -6,7 +6,6 @@ from bot.session_manager import SessionManager
 from bot.baidu.baidu_wenxin_session import BaiduWenxinSession
 from bridge.context import ContextType, Context
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from config import conf
 from common import const
 import time
@@ -26,6 +25,9 @@ import websocket
 import queue
 import threading
 import random
+
+from common import log
+logger = log.get_logger(__name__)
 
 # 消息队列 map
 queue_map = dict()

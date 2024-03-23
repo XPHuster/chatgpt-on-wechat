@@ -4,9 +4,10 @@ try:
 except ImportError:
     import queue as Queue  # type: ignore
 
-from common.log import logger
 from ..utils import test_connect
 from ..storage import templates
+from common import log
+logger = log.get_logger(__name__)
 
 def load_register(core):
     core.auto_login       = auto_login

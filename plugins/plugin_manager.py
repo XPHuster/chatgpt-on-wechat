@@ -6,12 +6,13 @@ import json
 import os
 import sys
 
-from common.log import logger
 from common.singleton import singleton
 from common.sorted_dict import SortedDict
 from config import conf, write_plugin_config
 
 from .event import *
+from common import log
+logger = log.get_logger(__name__)
 
 
 @singleton

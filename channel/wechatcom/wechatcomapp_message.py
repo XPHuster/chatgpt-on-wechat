@@ -2,8 +2,9 @@ from wechatpy.enterprise import WeChatClient
 
 from bridge.context import ContextType
 from channel.chat_message import ChatMessage
-from common.log import logger
 from common.tmp_dir import TmpDir
+from common import log
+logger = log.get_logger(__name__)
 
 
 class WechatComAppMessage(ChatMessage):

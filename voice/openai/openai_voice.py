@@ -6,12 +6,14 @@ import json
 import openai
 
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from config import conf
 from voice.voice import Voice
 import requests
 from common import const
 import datetime, random
+from common import log
+logger = log.get_logger(__name__)
+
 
 class OpenaiVoice(Voice):
     def __init__(self):

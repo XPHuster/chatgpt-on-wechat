@@ -14,13 +14,14 @@ from channel.chat_channel import ChatChannel
 from channel.wework.wework_message import *
 from channel.wework.wework_message import WeworkMessage
 from common.singleton import singleton
-from common.log import logger
 from common.time_check import time_checker
 from common.utils import compress_imgfile, fsize
 from config import conf
 from channel.wework.run import wework
 from channel.wework import run
 from PIL import Image
+from common import log
+logger = log.get_logger(__name__)
 
 
 def get_wxid_by_name(room_members, group_wxid, name):

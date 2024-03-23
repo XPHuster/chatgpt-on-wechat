@@ -9,8 +9,9 @@ import requests
 import plugins
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from plugins import *
+from common import log
+logger = log.get_logger(__name__)
 
 """利用百度UNIT实现智能对话
     如果命中意图，返回意图对应的回复，否则返回继续交付给下个插件处理

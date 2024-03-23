@@ -3,7 +3,8 @@ import re
 import time
 
 import config
-from common.log import logger
+from common import log
+logger = log.get_logger(__name__)
 
 
 def time_checker(f):

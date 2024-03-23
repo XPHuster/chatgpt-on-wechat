@@ -1,6 +1,8 @@
 import threading
 import time
-from common.log import logger
+from common import log
+logger = log.get_logger(__name__)
+
 
 class TokenBucket:
     def __init__(self, tpm, timeout=None):

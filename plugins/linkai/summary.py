@@ -1,7 +1,8 @@
 import requests
 from config import conf
-from common.log import logger
 import os
+from common import log
+logger = log.get_logger(__name__)
 
 
 class LinkSummary:

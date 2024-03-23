@@ -4,9 +4,10 @@ import threading
 import json
 import random
 import traceback
-from common.log import logger
 
 from config import conf
+from common import log
+logger = log.get_logger(__name__)
 
 try:
     from httplib import BadStatusLine

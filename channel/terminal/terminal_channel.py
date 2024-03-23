@@ -4,8 +4,10 @@ from bridge.context import *
 from bridge.reply import Reply, ReplyType
 from channel.chat_channel import ChatChannel, check_prefix
 from channel.chat_message import ChatMessage
-from common.log import logger
 from config import conf
+
+from common import log
+logger = log.get_logger(__name__)
 
 
 class TerminalMessage(ChatMessage):

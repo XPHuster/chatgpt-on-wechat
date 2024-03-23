@@ -1,5 +1,6 @@
 import re, os, sys, subprocess, copy, traceback
-from common.log import logger
+from common import log
+logger = log.get_logger(__name__)
 
 try:
     from HTMLParser import HTMLParser

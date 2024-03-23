@@ -3,7 +3,8 @@ import time
 import pip
 from pip._internal import main as pipmain
 
-from common.log import _reset_logger, logger
+from common import log
+logger = log.get_logger(__name__)
 
 
 def install(package):
@@ -12,7 +13,6 @@ def install(package):
 
 def install_requirements(file):
     pipmain(["install", "-r", file, "--upgrade"])
-    _reset_logger(logger)
 
 
 def check_dulwich():

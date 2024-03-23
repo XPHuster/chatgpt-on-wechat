@@ -7,12 +7,13 @@ from wechatpy.replies import ImageReply, VoiceReply, create_reply
 import textwrap
 from bridge.context import *
 from bridge.reply import *
-from channel.wechatmp.common import *
+from channel.wechatmp.common1 import *
 from channel.wechatmp.wechatmp_channel import WechatMPChannel
 from channel.wechatmp.wechatmp_message import WeChatMPMessage
-from common.log import logger
 from common.utils import split_string_by_utf8_length
 from config import conf, subscribe_msg
+from common import log
+logger = log.get_logger(__name__)
 
 
 # This class is instantiated once per query

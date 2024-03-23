@@ -8,11 +8,12 @@ import time
 from aip import AipSpeech
 
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from common.tmp_dir import TmpDir
 from config import conf
 from voice.audio_convert import get_pcm_from_wav
 from voice.voice import Voice
+from common import log
+logger = log.get_logger(__name__)
 
 """
     百度的语音识别API.

@@ -2,9 +2,11 @@ from bridge.context import ContextType
 from channel.chat_message import ChatMessage
 import json
 import requests
-from common.log import logger
 from common.tmp_dir import TmpDir
 from common import utils
+
+from common import log
+logger = log.get_logger(__name__)
 
 
 class FeishuMessage(ChatMessage):

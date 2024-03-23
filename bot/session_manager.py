@@ -1,6 +1,8 @@
 from common.expired_dict import ExpiredDict
-from common.log import logger
 from config import conf
+
+from common import log
+logger = log.get_logger(__name__)
 
 
 class Session(object):

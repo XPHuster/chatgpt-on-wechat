@@ -1,9 +1,11 @@
 import copy, pickle
 from weakref import ref
-from common.log import logger
 
 from ..returnvalues import ReturnValue
 from ..utils import update_info_dict
+from common import log
+logger = log.get_logger(__name__)
+
 
 class AttributeDict(dict):
     def __getattr__(self, value):

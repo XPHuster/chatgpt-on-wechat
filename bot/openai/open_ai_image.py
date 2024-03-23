@@ -3,9 +3,11 @@ import time
 import openai
 import openai.error
 
-from common.log import logger
 from common.token_bucket import TokenBucket
 from config import conf
+
+from common import log
+logger = log.get_logger(__name__)
 
 
 # OPENAI提供的画图接口

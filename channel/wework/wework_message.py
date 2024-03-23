@@ -7,8 +7,9 @@ import pilk
 
 from bridge.context import ContextType
 from channel.chat_message import ChatMessage
-from common.log import logger
 from ntwork.const import send_type
+from common import log
+logger = log.get_logger(__name__)
 
 
 def get_with_retry(get_func, max_retries=5, delay=5):

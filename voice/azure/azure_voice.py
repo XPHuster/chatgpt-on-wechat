@@ -9,10 +9,11 @@ import azure.cognitiveservices.speech as speechsdk
 from langid import classify
 
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from common.tmp_dir import TmpDir
 from config import conf
 from voice.voice import Voice
+from common import log
+logger = log.get_logger(__name__)
 
 """
 Azure voice

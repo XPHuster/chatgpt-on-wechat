@@ -3,12 +3,13 @@ import re
 import io
 import json
 import copy
-from common.log import logger
 
 from .. import config, utils
 from ..returnvalues import ReturnValue
 from ..storage import contact_change
 from ..utils import update_info_dict
+from common import log
+logger = log.get_logger(__name__)
 
 
 def load_contact(core):

@@ -10,12 +10,15 @@ from bot.chatgpt.chat_gpt_session import ChatGPTSession
 from bot.session_manager import SessionManager
 from bridge.context import Context, ContextType
 from bridge.reply import Reply, ReplyType
-from common.log import logger
 from config import conf, pconf
 import threading
 from common import memory, utils
 import base64
 import os
+
+from common import log
+logger = log.get_logger(__name__)
+
 
 class LinkAIBot(Bot):
     # authentication failed

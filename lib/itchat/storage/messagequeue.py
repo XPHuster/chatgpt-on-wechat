@@ -1,4 +1,5 @@
-from common.log import logger
+from common import log
+logger = log.get_logger(__name__)
 try:
     import Queue as queue
 except ImportError:
