@@ -5,8 +5,7 @@ import logging
 import os
 import pickle
 
-from common import log
-logger = log.get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 # 将所有可用的配置项写在字典里, 请使用小写字母
 # 此处的配置值无实际意义，程序不会读取此处的配置，仅用于提示格式，请将配置加入到config.json中

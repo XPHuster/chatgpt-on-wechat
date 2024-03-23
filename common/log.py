@@ -1,5 +1,7 @@
 import logging
 import sys
+from config import load_config
+from config import conf
 
 
 def _reset_logger(log):
@@ -18,7 +20,8 @@ def _reset_logger(log):
     console_handle.setFormatter(formatter)
     log.addHandler(console_handle)
     # file_handle
-    file_handle = logging.FileHandler("./log/run.log", encoding="utf-8", mode='a')
+    appid = conf().get("appid")
+    file_handle = logging.FileHandler("./log/" + appid + ".log", encoding="utf-8", mode='a')
     file_handle.setFormatter(formatter)
     log.addHandler(file_handle)
 
@@ -31,4 +34,5 @@ def get_logger(name: str):
 
 
 # 日志句柄
+load_config()
 logger = get_logger("log")
