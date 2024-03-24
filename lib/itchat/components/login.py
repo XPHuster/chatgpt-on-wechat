@@ -8,6 +8,7 @@ import xml.dom.minidom
 import random
 import traceback
 
+from common.notification import notify
 from config import conf
 
 try:
@@ -86,6 +87,7 @@ def login(self, enableCmdQR=False, picDir=None, qrCallback=None,
     self.show_mobile_login()
     self.get_contact(True)
     if hasattr(loginCallback, '__call__'):
+        logger.info("login() sync loginCallback()")
         r = loginCallback()
     else:
         # utils.clear_screen()
@@ -331,16 +333,10 @@ def start_receiving(self, exitCallback=None, getReceivingFnOnly=False):
                 else:
                     time.sleep(1)
         self.logout()
+        logger.info('start_receiving() sync LOG OUT!')
         if hasattr(exitCallback, '__call__'):
+            logger.info("start_receiving() sync exitCallback()")
             exitCallback()
-        else:
-            logger.info('LOG OUT2!')
-            headers = {'Content-Type': 'application/json'}
-            appid = conf().get("appid")
-            data = {'msg_type': 'text', 'content': {'text': f"robot logout，appid:{appid}"}}
-            webhook = conf().get("webhook")
-            if webhook:
-                requests.post(webhook, json=data, headers=headers)
 
     if getReceivingFnOnly:
         return maintain_loop
@@ -381,6 +377,7 @@ def sync_check(self):
     pm = re.search(regx, r.text)
     if pm is None or pm.group(1) != '0':
         logger.error('Unexpected sync check result: %s' % r.text)
+        notify("sync_check error!", 'Unexpected sync check result: %s' % r.text, "red")
         return None
     return pm.group(2)
 
@@ -409,6 +406,8 @@ def get_msg(self):
 
 
 def logout(self):
+    logger.info("logout() robot logout!")
+    # notify("robot logout!", "logout() robot logout!", "red")
     if self.alive:
         url = '%s/webwxlogout' % self.loginInfo['url']
         params = {

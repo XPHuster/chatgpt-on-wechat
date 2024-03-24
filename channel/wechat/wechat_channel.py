@@ -114,6 +114,7 @@ class WechatChannel(ChatChannel):
         self.auto_login_times = 0
 
     def startup(self):
+        logger.info("startup()")
         try:
             itchat.instance.receivingRetryCount = 600  # 修改断线超时时间
             # login by scan QRCode
@@ -136,6 +137,8 @@ class WechatChannel(ChatChannel):
             logger.error(e)
 
     def exitCallback(self):
+        logger.info("exitCallback()")
+        self.startup()
         try:
             from common.linkai_client import chat_client
             if chat_client.client_id and conf().get("use_linkai"):
@@ -146,10 +149,10 @@ class WechatChannel(ChatChannel):
                     chat_channel.handler_pool._shutdown = False
                     self.startup()
         except Exception as e:
-            pass
+            logger.error("exitCallback()", e)
 
     def loginCallback(self):
-        logger.debug("Login success")
+        logger.info("loginCallback() Login success")
         _send_login_success()
 
     # handle_* 系列函数处理收到的消息后构造Context，然后传入produce函数中处理Context和发送回复
@@ -258,6 +261,7 @@ class WechatChannel(ChatChannel):
             itchat.send_video(video_storage, toUserName=receiver)
             logger.info("[WX] sendVideo url={}, receiver={}".format(video_url, receiver))
 
+
 def _send_login_success():
     try:
         from common.linkai_client import chat_client
@@ -266,6 +270,7 @@ def _send_login_success():
     except Exception as e:
         pass
 
+
 def _send_logout():
     try:
         from common.linkai_client import chat_client
@@ -273,6 +278,7 @@ def _send_logout():
             chat_client.send_logout()
     except Exception as e:
         pass
+
 
 def _send_qr_code(qrcode_list: list):
     try:

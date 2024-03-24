@@ -5,6 +5,7 @@ import json
 import random
 import traceback
 
+from common.notification import notify
 from config import conf
 from common import log
 logger = log.get_logger(__name__)
@@ -103,13 +104,6 @@ async def login(self, enableCmdQR=False, picDir=None, qrCallback=None, EventScan
             break
         elif self.isLogging:
             logger.info('Log in time out, reloading QR code.')
-            headers = {'Content-Type': 'application/json'}
-            appid = conf().get("appid")
-            data = {'msg_type': 'text', 'content': {'text': f"robot logout，appid:{appid}"}}
-            webhook = conf().get("webhook")
-            if webhook:
-                requests.post(webhook, json=data, headers=headers)
-
             payload = EventScanPayload(
                 status=ScanStatus.Timeout,
                 qrcode=f"https://login.weixin.qq.com/l/{self.uuid}"
@@ -123,6 +117,7 @@ async def login(self, enableCmdQR=False, picDir=None, qrCallback=None, EventScan
     await self.show_mobile_login()
     self.get_contact(True)
     if hasattr(loginCallback, '__call__'):
+        logger.info("login() sync loginCallback()")
         r = await loginCallback(self.storageClass.userName)
     else:
         utils.clear_screen()
@@ -347,16 +342,10 @@ async def start_receiving(self, exitCallback=None, getReceivingFnOnly=False):
                 else:
                     time.sleep(1)
         self.logout()
+        logger.info('start_receiving() async LOG OUT!')
         if hasattr(exitCallback, '__call__'):
+            logger.info("start_receiving() async exitCallback()")
             exitCallback(self.storageClass.userName)
-        else:
-            logger.info('LOG OUT1!')
-            headers = {'Content-Type': 'application/json'}
-            appid = conf().get("appid")
-            data = {'msg_type': 'text', 'content': {'text': f"robot logout，appid:{appid}"}}
-            webhook = conf().get("webhook")
-            if webhook:
-                requests.post(webhook, json=data, headers=headers)
 
     if getReceivingFnOnly:
         return maintain_loop
@@ -395,8 +384,10 @@ def sync_check(self):
     pm = re.search(regx, r.text)
     if pm is None or pm.group(1) != '0':
         logger.debug('Unexpected sync check result: %s' % r.text)
+        notify("sync_check error!", 'Unexpected sync check result: %s' % r.text, "red")
         return None
     return pm.group(2)
+
 
 def get_msg(self):
     self.loginInfo['deviceid'] = 'e' + repr(random.random())[2:17]
@@ -418,7 +409,10 @@ def get_msg(self):
         for item in dic['SyncCheckKey']['List']])
     return dic['AddMsgList'], dic['ModContactList']
 
+
 def logout(self):
+    logger.info("logout() robot logout!")
+    # notify("robot logout!", "logout() robot logout!", "red")
     if self.alive:
         url = '%s/webwxlogout' % self.loginInfo['url']
         params = {
